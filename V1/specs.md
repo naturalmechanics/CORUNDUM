@@ -108,19 +108,19 @@ the renderer emits Runes along a predefined FlowCurve across the page.
 
 ### 4.1.2 Blank Lines
 
-    * Blank Line:                   A line containing exclusively horizontal whitespace (spaces/tabs) preceding an LF.
-                                    The renderer ignores a single blank line.
-    * Double Blank Line:            Two consecutive Blank Lines. Acts as a mandatory structural terminator.
-                                    The renderer handels this as a paragraph break.
-    * Multiple (>2) Blank Lines:    More than 2 blank lines will be normalized to a double blank line.
+* Blank Line:                   A line containing exclusively horizontal whitespace (spaces/tabs) preceding an LF.
+                                The renderer ignores a single blank line.
+* Double Blank Line:            Two consecutive Blank Lines. Acts as a mandatory structural terminator.
+                                The renderer handels this as a paragraph break.
+* Multiple (>2) Blank Lines:    More than 2 blank lines will be normalized to a double blank line.
 
 ### 4.1.3 Indentation
 
 The indentation unit is defined as exactly four (4) spaces.
 
-    * For a prefix of k spaces: nesting_level = floor(k / 4).
-    * Remainder spaces are discarded.
-    * Constraint: Indentation defines structure only within List contexts.
+* For a prefix of k spaces: nesting_level = floor(k / 4).
+* Remainder spaces are discarded.
+* Constraint: Indentation defines structure only within List contexts.
 
 
 
@@ -147,27 +147,27 @@ The include directive syntax is:
 
 `!INCLUDE SkinFileName.corst`
 
-    - Inclusion Rules
-        -- Position Requirement
-            --- The include directive must be the first non-empty line of the document.
-            --- If any non-whitespace character precedes it, the parser shall 
-                not recognize the directive and shall treat it as plain text.
-    
-        --  Token Structure
-            --- The ! symbol must be in the sameline as the keyword INCLUDE.
-            --- No line break is permitted between them.
-            --- Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
-            --- At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
-            --- No line break is permitted between INCLUDE and the file name.
-    
-        -- Termination
-            --- The directive must terminate with at least one line break.
-            --- Two line breaks are recommended to visually separate the directive from document content.
-    
-        -- File Name Constraints
-            --- The file name must end in .corst.
-            --- Only one Skin File may be included in Corundum v1.
-            --- Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
+- Inclusion Rules
+    -- Position Requirement
+        --- The include directive must be the first non-empty line of the document.
+        --- If any non-whitespace character precedes it, the parser shall 
+            not recognize the directive and shall treat it as plain text.
+
+    --  Token Structure
+        --- The ! symbol must be in the sameline as the keyword INCLUDE.
+        --- No line break is permitted between them.
+        --- Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
+        --- At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
+        --- No line break is permitted between INCLUDE and the file name.
+
+    -- Termination
+        --- The directive must terminate with at least one line break.
+        --- Two line breaks are recommended to visually separate the directive from document content.
+
+    -- File Name Constraints
+        --- The file name must end in .corst.
+        --- Only one Skin File may be included in Corundum v1.
+        --- Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
 
 
 
