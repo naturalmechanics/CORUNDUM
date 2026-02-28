@@ -322,9 +322,9 @@ Comments are enclosed between //== and ==//.
 
     - The entire style definition is enclosed within a pair of brackets:
     
-    `[`
+    [
     ...
-    `]`
+    ]
     
         -- The opening [ and closing ] of the outer block must each appear on their own line.
         -- No other characters are permitted on those lines except optional whitespace.
@@ -349,9 +349,9 @@ StyleTag !!
     
     - Following the StyleTag line, an inner bracket block must appear:
     
-    `[`
+    [
         Attribute declarations
-    `]`
+    ]
     
         -- The opening [ must be on its own line.
         -- The closing ] must be on its own line.
@@ -438,12 +438,12 @@ AttributeName : Type/Unit Value
 
 Example:
 
-    `[`
+    [
         bodyText !!
-        `[`
+        [
             FontFace : string "Tex Gyre Termes"
-        `]`
-    `]`
+        ]
+    ]
     
     ........
     
