@@ -154,11 +154,13 @@ The include directive syntax is:
             not recognize the directive and shall treat it as plain text.
 
     - Token Structure
-        - The ! symbol must be in the sameline as the keyword INCLUDE.
+        - The `!` symbol must be in the same line as the keyword `INCLUDE`.
+        - The keyword `INCLUDE` is not case sensitive, but upper case is recommended.
         - No line break is permitted between them.
-        - Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
+        - Horizontal whitespace, such as space or tab, is permitted between the `!` symbol and the keyword `INCLUDE`
         - At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
-        - No line break is permitted between INCLUDE and the file name.
+        - The file name follows same case sensitive behavior as specified by the Operating System.
+        - No line break is permitted between `INCLUDE` and the file name.
 
     - Termination
         - The directive must terminate with at least one line break.
@@ -177,46 +179,44 @@ A style is applied to a bounded region of Runes using a pipe-delimited construct
 
 Syntax: `|| [StyleTag] Styled content ||`
 
-    - Structural Rules
-        -- Delimiters
-            --- A styled region begins with a double pipe ||.
-            --- It terminates with a closing double pipe ||.
-            --- The first matching closing delimiter after the opening delimiter terminates the region.
-            --- Nested styled regions are not permitted in Corundum v1.
-    
-        -- StyleTag Placement
-            --- The StyleTag must appear immediately after the opening ||, enclosed in square brackets [ ].
-            --- At least one horizontal whitespace between the opening || and the opening `[` is recommended 
-                for readability, but not required.
-            --- After the closing `]`, all horizontal whitespace up to the first non-whitespace Rune is ignored by the renderer.
-            --- Vertical whitespace (line breaks) inside [StyleTag] is not permitted.
-    
-        -- Closing Whitespace Handling
-            --- All contiguous horizontal whitespace immediately preceding the closing || is ignored by the renderer.
-            --- Internal whitespace within the styled region is otherwise preserved according to standard flow rules.
-    
-        -- Single StyleTag Constraint
-            --- Exactly one `[StyleTag]` is permitted per styled region.
-            --- Additional bracketed tags inside the same region are invalid, and the parser won't recognize it
-            --- Sub-styling or nested styles are not supported in v1.
-    
-    
-    
-    - StyleTag Definition Rules
-    
-        A StyleTag is an alphanumeric identifier subject to the following constraints:
-    
-        -- First Character: Must be an alphabetic character `[A–Z]` or `[a–z]`.
-        -- Subsequent Characters: May contain:
-            --- Alphabetic characters
-            --- Numeric digits
-            --- Underscores _
-        -- Prohibited:
-            --- Leading digits
-            --- Leading underscores
-            --- Whitespace
-            --- Special characters other than underscore
-            --- Line breaks
+- Structural Rules
+    - Delimiters
+        - A styled region begins with a double pipe `||`.
+        - It terminates with a closing double pipe `||`.
+        - The first matching closing delimiter after the opening delimiter terminates the region.
+        - Nested styled regions are not permitted in Corundum v1.
+
+    - StyleTag Placement
+        - The StyleTag must appear immediately after the opening `||`, enclosed in square brackets `[ ]`.
+        - At least one horizontal whitespace between the opening `||` and the opening `[` is recommended 
+            for readability, but not required.
+        - After the closing `]`, all horizontal whitespace up to the first non-whitespace Rune is ignored by the renderer.
+        - Vertical whitespace (line breaks) inside `[StyleTag]` is not permitted.
+
+    -- Closing Whitespace Handling
+        --- All contiguous horizontal whitespace immediately preceding the closing `||` is ignored by the renderer.
+        --- Internal whitespace within the styled region is otherwise preserved according to standard flow rules.
+
+    -- Single StyleTag Constraint
+        --- Exactly one `[StyleTag]` is permitted per styled region.
+        --- Additional bracketed tags inside the same region are invalid, and the parser won't recognize it
+        --- Sub-styling or nested styles are not supported in v1.
+
+
+
+- StyleTag Definition Rules
+    - A StyleTag is an alphanumeric identifier subject to the following constraints:
+    - First Character: Must be an alphabetic character `[A–Z]` or `[a–z]`.
+    - Subsequent Characters: May contain:
+        - Alphabetic characters
+        - Numeric digits
+        - Underscores _
+    - Prohibited:
+        - Leading digits
+        - Leading underscores
+        - Whitespace
+        - Special characters other than underscore
+        - Line breaks
 
 The StyleTag must correspond to a style definition declared in the included .corst file.
 If no matching style exists, the parser must still construct the styled region node; 
@@ -229,8 +229,8 @@ however, the renderer may fall back to a default behavior.
 
 A StyleTag may serve both as:
 
-    1. visual styling directive, and
-    2. A semantic marker.
+1. visual styling directive, and
+2. A semantic marker.
 
 Example:
 
@@ -239,10 +239,10 @@ Example:
 Even if the renderer applies no visual distinction, the bounded content is semantically marked as Important.
 This enables:
 
-    - Structural querying
-    - Semantic indexing
-    - Conditional rendering
-    - Machine-level interpretation
+- Structural querying
+- Semantic indexing
+- Conditional rendering
+- Machine-level interpretation
 
 The StyleTag therefore carries semantic weight independent of visual styling. 
 The renderer may ignore visual transformation, but it must not discard the semantic classification encoded in the AST.
@@ -253,17 +253,17 @@ The renderer may ignore visual transformation, but it must not discard the seman
 
 To preserve determinism in v1:
 
-    - Pipe delimiters || are recognized only in FLOW context.
-    - A || sequence encountered inside an already-open styled region is treated as a closing delimiter.
-    - There is an mechanism for literal || as well as a single pipe inside a styled region.
-    - Nested styled regions are syntactically invalid.
-    - Multiple adjacent styled regions are valid and parsed sequentially.
+- Pipe delimiters `||` are recognized only in FLOW context.
+- A `||` sequence encountered inside an already-open styled region is treated as a closing delimiter.
+- There is an mechanism for literal `||` as well as a single pipe inside a styled region.
+- Nested styled regions are syntactically invalid.
+- Multiple adjacent styled regions are valid and parsed sequentially.
 
 This ensures:
 
-    - Single-pass deterministic parsing
-    - No lookahead beyond matching delimiter
-    - No ambiguity between pipes used as text and pipes used as style markers (since pipes have no other reserved meaning in v1)
+- Single-pass deterministic parsing
+- No lookahead beyond matching delimiter
+- No ambiguity between pipes used as text and pipes used as style markers (since pipes have no other reserved meaning in v1)
 
 
 # 5. Style Definitions
@@ -272,9 +272,9 @@ This ensures:
 Styles inside a .corst file are defined using bracket-delimited blocks.
 Each style definition consists of:
 
-    - An outer bracket block defining the style.
-    - A style identifier line.
-    - An inner bracket block containing attribute declarations.
+- An outer bracket block defining the style.
+- A style identifier line.
+- An inner bracket block containing attribute declarations.
 
 The Syntax is: 
 
@@ -309,56 +309,56 @@ etc.
 
 Comments are enclosed between //== and ==//.  
 
-    - Only single-line comments are permitted in v1.
-    - The opening marker //== and closing marker ==// must appear on the same line.
-    - Multi-line comments are not supported.
-    - Comments may appear:
-        -- On otherwise empty lines.
-        -- After valid syntax on the same line.
-    - Comments are stripped during lexical preprocessing before parsing.
+- Only single-line comments are permitted in v1.
+- The opening marker `//==` and closing marker `==//` must appear on the same line.
+- Multi-line comments are not supported.
+- Comments may appear:
+    - On otherwise empty lines.
+    - After valid syntax on the same line.
+- Comments are stripped during lexical preprocessing before parsing.
 
 5.2 Syntax of a style 
 ----------------
 
-    - The entire style definition is enclosed within a pair of brackets:
+- The entire style definition is enclosed within a pair of brackets:
+        
+        [
+        ...
+        ]
     
-    [
-    ...
-    ]
-    
-        -- The opening [ and closing ] of the outer block must each appear on their own line.
-        -- No other characters are permitted on those lines except optional whitespace.
-        -- Immediately following the opening bracket, the next non-empty, non-comment line must contain the StyleTag declaration.
-    
-    - The StyleTag declaration must follow this structure:
+- The opening `[` and closing `]` of the outer block must each appear on their own line.
+- No other characters are permitted on those lines except optional whitespace.
+- Immediately following the opening bracket, the next non-empty, non-comment line must contain the StyleTag declaration.
 
-StyleTag !!
+- The StyleTag declaration must follow this structure:
+
+        StyleTag !!
 
 
-        -- The StyleTag must conform to the same lexical constraints defined for .cortx files:
-            --- First character: alphabetic [A–Z a–z]
-            --- Subsequent characters: alphanumeric or underscore
-            --- No leading digits
-            --- No leading underscore
-            --- No special characters except underscore
-            --- No vertical whitespace
-        -- The StyleTag must be followed by exactly two exclamation marks: !!
-        -- No line break is allowed between the StyleTag and !!
-        -- Horizontal whitespace between the StyleTag and !! is permitted but not required
-        -- No additional tokens may appear on the same line (excluding comments)
+- The StyleTag must conform to the same lexical constraints defined for .cortx files:
+    - First character: alphabetic [A–Z a–z]
+    - Subsequent characters: alphanumeric or underscore
+    - No leading digits
+    - No leading underscore
+    - No special characters except underscore
+    - No vertical whitespace
+- The StyleTag must be followed by exactly two exclamation marks: !!
+- No line break is allowed between the StyleTag and !!
+- Horizontal whitespace between the StyleTag and !! is permitted but not required
+- No additional tokens may appear on the same line (excluding comments)
     
-    - Following the StyleTag line, an inner bracket block must appear:
+- Following the StyleTag line, an inner bracket block must appear:
     
-    [
-        Attribute declarations
-    ]
+        [
+            Attribute declarations
+        ]
     
-        -- The opening [ must be on its own line.
-        -- The closing ] must be on its own line.
-        -- Between them, one or more attribute lines may appear.
-        -- Only attribute declarations and comments are allowed inside the inner block.
+    - The opening `[` must be on its own line.
+    - The closing `]` must be on its own line.
+    - Between them, one or more attribute lines may appear.
+    - Only attribute declarations and comments are allowed inside the inner block.
     
-    - Each attribute must follow this strict structure:
+- Each attribute must follow this strict structure:
 
 `AttributeName : Type/Unit Value`
 
