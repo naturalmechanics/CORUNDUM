@@ -103,8 +103,8 @@ the renderer emits Runes along a predefined FlowCurve across the page.
 
 ### 4.1.1 Normalization
 
-    * Line Breaks:          All line endings MUST be normalized to LF (\n).
-    * Tabs:                 All tab characters MUST be normalized (converted to spaces) prior to parsing.
+* Line Breaks:          All line endings MUST be normalized to LF (\n).
+* Tabs:                 All tab characters MUST be normalized (converted to spaces) prior to parsing.
 
 ### 4.1.2 Blank Lines
 
