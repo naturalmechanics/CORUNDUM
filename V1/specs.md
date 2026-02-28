@@ -74,8 +74,8 @@ In the absence of external .corst configuration, the following rendering default
 
 
 
-4. Rune Handling
-====
+# 4. Rune Handling
+
 
 The fundamental unit of Corundum is the Rune.
 
@@ -101,12 +101,12 @@ the renderer emits Runes along a predefined FlowCurve across the page.
 ---------------
 
 
-4.1.1 Normalization
+### 4.1.1 Normalization
 
     * Line Breaks:          All line endings MUST be normalized to LF (\n).
     * Tabs:                 All tab characters MUST be normalized (converted to spaces) prior to parsing.
 
-4.1.2 Blank Lines
+### 4.1.2 Blank Lines
 
     * Blank Line:                   A line containing exclusively horizontal whitespace (spaces/tabs) preceding an LF.
                                     The renderer ignores a single blank line.
@@ -114,7 +114,7 @@ the renderer emits Runes along a predefined FlowCurve across the page.
                                     The renderer handels this as a paragraph break.
     * Multiple (>2) Blank Lines:    More than 2 blank lines will be normalized to a double blank line.
 
-4.1.3 Indentation
+### 4.1.3 Indentation
 
 The indentation unit is defined as exactly four (4) spaces.
 
@@ -132,93 +132,91 @@ The indentation unit is defined as exactly four (4) spaces.
 Runes are styled through an external Skin File.
 The file extension for a Skin File is:
 
-*.corst
+`*.corst`
 
 A Skin File defines named style rules that may be applied to bounded regions of Runes within a .cortx document.
 
 
 
 
-4.2.1 Including the Skin File
+### 4.2.1 Including the Skin File
 
 A Skin File must be explicitly included at the beginning of a .cortx file.
 
 The include directive syntax is:
 
-!INCLUDE SkinFileName.corst
+`!INCLUDE SkinFileName.corst`
+
+    - Inclusion Rules
+        -- Position Requirement
+            --- The include directive must be the first non-empty line of the document.
+            --- If any non-whitespace character precedes it, the parser shall 
+                not recognize the directive and shall treat it as plain text.
+    
+        --  Token Structure
+            --- The ! symbol must be in the sameline as the keyword INCLUDE.
+            --- No line break is permitted between them.
+            --- Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
+            --- At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
+            --- No line break is permitted between INCLUDE and the file name.
+    
+        -- Termination
+            --- The directive must terminate with at least one line break.
+            --- Two line breaks are recommended to visually separate the directive from document content.
+    
+        -- File Name Constraints
+            --- The file name must end in .corst.
+            --- Only one Skin File may be included in Corundum v1.
+            --- Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
 
 
 
-- Inclusion Rules
-    -- Position Requirement
-        --- The include directive must be the first non-empty line of the document.
-        --- If any non-whitespace character precedes it, the parser shall 
-            not recognize the directive and shall treat it as plain text.
-
-    --  Token Structure
-        --- The ! symbol must be in the sameline as the keyword INCLUDE.
-        --- No line break is permitted between them.
-        --- Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
-        --- At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
-        --- No line break is permitted between INCLUDE and the file name.
-
-    -- Termination
-        --- The directive must terminate with at least one line break.
-        --- Two line breaks are recommended to visually separate the directive from document content.
-
-    -- File Name Constraints
-        --- The file name must end in .corst.
-        --- Only one Skin File may be included in Corundum v1.
-        --- Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
-
-
-
-4.2.2 Applying a Style
+#### 4.2.2 Applying a Style
 
 A style is applied to a bounded region of Runes using a pipe-delimited construct.
 
-Syntax: || [StyleTag] Styled content ||
+Syntax: `|| [StyleTag] Styled content ||`
 
-- Structural Rules
-    -- Delimiters
-        --- A styled region begins with a double pipe ||.
-        --- It terminates with a closing double pipe ||.
-        --- The first matching closing delimiter after the opening delimiter terminates the region.
-        --- Nested styled regions are not permitted in Corundum v1.
-
-    -- StyleTag Placement
-        --- The StyleTag must appear immediately after the opening ||, enclosed in square brackets [ ].
-        --- At least one horizontal whitespace between the opening || and the opening `[` is recommended 
-            for readability, but not required.
-        --- After the closing `]`, all horizontal whitespace up to the first non-whitespace Rune is ignored by the renderer.
-        --- Vertical whitespace (line breaks) inside [StyleTag] is not permitted.
-
-    -- Closing Whitespace Handling
-        --- All contiguous horizontal whitespace immediately preceding the closing || is ignored by the renderer.
-        --- Internal whitespace within the styled region is otherwise preserved according to standard flow rules.
-
-    -- Single StyleTag Constraint
-        --- Exactly one `[StyleTag]` is permitted per styled region.
-        --- Additional bracketed tags inside the same region are invalid, and the parser won't recognize it
-        --- Sub-styling or nested styles are not supported in v1.
-
-
-
-- StyleTag Definition Rules
-
-    A StyleTag is an alphanumeric identifier subject to the following constraints:
-
-    -- First Character: Must be an alphabetic character `[A–Z]` or `[a–z]`.
-    -- Subsequent Characters: May contain:
-        --- Alphabetic characters
-        --- Numeric digits
-        --- Underscores _
-    -- Prohibited:
-        --- Leading digits
-        --- Leading underscores
-        --- Whitespace
-        --- Special characters other than underscore
-        --- Line breaks
+    - Structural Rules
+        -- Delimiters
+            --- A styled region begins with a double pipe ||.
+            --- It terminates with a closing double pipe ||.
+            --- The first matching closing delimiter after the opening delimiter terminates the region.
+            --- Nested styled regions are not permitted in Corundum v1.
+    
+        -- StyleTag Placement
+            --- The StyleTag must appear immediately after the opening ||, enclosed in square brackets [ ].
+            --- At least one horizontal whitespace between the opening || and the opening `[` is recommended 
+                for readability, but not required.
+            --- After the closing `]`, all horizontal whitespace up to the first non-whitespace Rune is ignored by the renderer.
+            --- Vertical whitespace (line breaks) inside [StyleTag] is not permitted.
+    
+        -- Closing Whitespace Handling
+            --- All contiguous horizontal whitespace immediately preceding the closing || is ignored by the renderer.
+            --- Internal whitespace within the styled region is otherwise preserved according to standard flow rules.
+    
+        -- Single StyleTag Constraint
+            --- Exactly one `[StyleTag]` is permitted per styled region.
+            --- Additional bracketed tags inside the same region are invalid, and the parser won't recognize it
+            --- Sub-styling or nested styles are not supported in v1.
+    
+    
+    
+    - StyleTag Definition Rules
+    
+        A StyleTag is an alphanumeric identifier subject to the following constraints:
+    
+        -- First Character: Must be an alphabetic character `[A–Z]` or `[a–z]`.
+        -- Subsequent Characters: May contain:
+            --- Alphabetic characters
+            --- Numeric digits
+            --- Underscores _
+        -- Prohibited:
+            --- Leading digits
+            --- Leading underscores
+            --- Whitespace
+            --- Special characters other than underscore
+            --- Line breaks
 
 The StyleTag must correspond to a style definition declared in the included .corst file.
 If no matching style exists, the parser must still construct the styled region node; 
@@ -227,17 +225,16 @@ however, the renderer may fall back to a default behavior.
 
 
 
-4.2.3 StyleTag as a Semantic Indicator
+### 4.2.3 StyleTag as a Semantic Indicator
 
 A StyleTag may serve both as:
 
     1. visual styling directive, and
-
     2. A semantic marker.
 
 Example:
 
-|| [Important] Nunc pellentesque tortor ligula, a tristique ipsum lobortis mollis. ||
+` || [Important] Nunc pellentesque tortor ligula, a tristique ipsum lobortis mollis. ||`
 
 Even if the renderer applies no visual distinction, the bounded content is semantically marked as Important.
 This enables:
@@ -252,7 +249,7 @@ The renderer may ignore visual transformation, but it must not discard the seman
 
 
 
-4.2.4 Conflict and Ambiguity Resolution
+### 4.2.4 Conflict and Ambiguity Resolution
 
 To preserve determinism in v1:
 
@@ -269,41 +266,41 @@ This ensures:
     - No ambiguity between pipes used as text and pipes used as style markers (since pipes have no other reserved meaning in v1)
 
 
-5. Style Definitions
-====
+# 5. Style Definitions
+
 
 Styles inside a .corst file are defined using bracket-delimited blocks.
 Each style definition consists of:
 
-- An outer bracket block defining the style.
-- A style identifier line.
-- An inner bracket block containing attribute declarations.
+    - An outer bracket block defining the style.
+    - A style identifier line.
+    - An inner bracket block containing attribute declarations.
 
 The Syntax is: 
 
-[
-
-    StyleTag !!
-
     [
-        FontColor: RGB AABBCC
-        FontFace:  string "Cormorant Regular"
-
+    
+        StyleTag !!
+    
+        [
+            FontColor: RGB AABBCC
+            FontFace:  string "Cormorant Regular"
+    
+        ]
+    
     ]
 
-]
-
-[
-
-    anotherStyleTag !!
-
     [
-        FontColor: .....
-        FontFace:  .....
-
+    
+        anotherStyleTag !!
+    
+        [
+            FontColor: .....
+            FontFace:  .....
+    
+        ]
+    
     ]
-
-]
 
 etc. 
 
@@ -312,58 +309,58 @@ etc.
 
 Comments are enclosed between //== and ==//.  
 
-- Only single-line comments are permitted in v1.
-- The opening marker //== and closing marker ==// must appear on the same line.
-- Multi-line comments are not supported.
-- Comments may appear:
-    -- On otherwise empty lines.
-    -- After valid syntax on the same line.
-- Comments are stripped during lexical preprocessing before parsing.
+    - Only single-line comments are permitted in v1.
+    - The opening marker //== and closing marker ==// must appear on the same line.
+    - Multi-line comments are not supported.
+    - Comments may appear:
+        -- On otherwise empty lines.
+        -- After valid syntax on the same line.
+    - Comments are stripped during lexical preprocessing before parsing.
 
 5.2 Syntax of a style 
 ----------------
 
-- The entire style definition is enclosed within a pair of brackets:
-
-`[`
-...
-`]`
-
-    -- The opening [ and closing ] of the outer block must each appear on their own line.
-    -- No other characters are permitted on those lines except optional whitespace.
-    -- Immediately following the opening bracket, the next non-empty, non-comment line must contain the StyleTag declaration.
-
-- The StyleTag declaration must follow this structure:
+    - The entire style definition is enclosed within a pair of brackets:
+    
+    `[`
+    ...
+    `]`
+    
+        -- The opening [ and closing ] of the outer block must each appear on their own line.
+        -- No other characters are permitted on those lines except optional whitespace.
+        -- Immediately following the opening bracket, the next non-empty, non-comment line must contain the StyleTag declaration.
+    
+    - The StyleTag declaration must follow this structure:
 
 StyleTag !!
 
 
-    -- The StyleTag must conform to the same lexical constraints defined for .cortx files:
-        --- First character: alphabetic [A–Z a–z]
-        --- Subsequent characters: alphanumeric or underscore
-        --- No leading digits
-        --- No leading underscore
-        --- No special characters except underscore
-        --- No vertical whitespace
-    -- The StyleTag must be followed by exactly two exclamation marks: !!
-    -- No line break is allowed between the StyleTag and !!
-    -- Horizontal whitespace between the StyleTag and !! is permitted but not required
-    -- No additional tokens may appear on the same line (excluding comments)
+        -- The StyleTag must conform to the same lexical constraints defined for .cortx files:
+            --- First character: alphabetic [A–Z a–z]
+            --- Subsequent characters: alphanumeric or underscore
+            --- No leading digits
+            --- No leading underscore
+            --- No special characters except underscore
+            --- No vertical whitespace
+        -- The StyleTag must be followed by exactly two exclamation marks: !!
+        -- No line break is allowed between the StyleTag and !!
+        -- Horizontal whitespace between the StyleTag and !! is permitted but not required
+        -- No additional tokens may appear on the same line (excluding comments)
+    
+    - Following the StyleTag line, an inner bracket block must appear:
+    
+    `[`
+        Attribute declarations
+    `]`
+    
+        -- The opening [ must be on its own line.
+        -- The closing ] must be on its own line.
+        -- Between them, one or more attribute lines may appear.
+        -- Only attribute declarations and comments are allowed inside the inner block.
+    
+    - Each attribute must follow this strict structure:
 
-- Following the StyleTag line, an inner bracket block must appear:
-
-`[`
-    Attribute declarations
-`]`
-
-    -- The opening [ must be on its own line.
-    -- The closing ] must be on its own line.
-    -- Between them, one or more attribute lines may appear.
-    -- Only attribute declarations and comments are allowed inside the inner block.
-
-- Each attribute must follow this strict structure:
-
-AttributeName : Type/Unit Value
+`AttributeName : Type/Unit Value`
 
     -- The entire attribute declaration must occupy a single line (v1 constraint).
     -- Around the colon :, horizontal whitespace is permitted.
@@ -372,20 +369,20 @@ AttributeName : Type/Unit Value
     -- No comma syntax is used in v1.
     -- Duplicate attribute names within the same style block are invalid in v1.
 
-- The syntax requires the type or unit to precede the value.
-
-Examples:
-
-FontColor : RGBHEX AABBCC
-FontColor : RGB AABBCC
-FontFace  : string "Cormorant Regular"
-FontSize  : px 32
-
-    This ensures:
-
-    -- Strong syntactic determinism
-    -- Clear separation between semantic intent (Type/Unit) and payload (Value)
-    -- Easier static validation
+    - The syntax requires the type or unit to precede the value.
+    
+    Examples:
+    
+    FontColor : RGBHEX AABBCC
+    FontColor : RGB AABBCC
+    FontFace  : string "Cormorant Regular"
+    FontSize  : px 32
+    
+        This ensures:
+    
+        -- Strong syntactic determinism
+        -- Clear separation between semantic intent (Type/Unit) and payload (Value)
+        -- Easier static validation
 
 
 
@@ -407,56 +404,56 @@ After all individual style definitions, a Global Page Block may be declared.
 This block defines properties that apply to the entire document manifold.
 
 
-5.4.1 Global Delimiter
+### 5.4.1 Global Delimiter
 The transition from style definitions to global page attributes is marked by a Global Separator.
 The separator is: ........
 
-- It must consist of eight or more consecutive periods.
-- The separator must appear on a line by itself.
-- It must be preceded by a Double Blank Line.
-- It must be followed by a Double Blank Line.
-- It may only appear once in a .corst file.
-- It is valid only inside .corst files (never in .cortx).
+    - It must consist of eight or more consecutive periods.
+    - The separator must appear on a line by itself.
+    - It must be preceded by a Double Blank Line.
+    - It must be followed by a Double Blank Line.
+    - It may only appear once in a .corst file.
+    - It is valid only inside .corst files (never in .cortx).
 
 
 
-5.4.2 Attribute Syntax
+### 5.4.2 Attribute Syntax
 
 Within the Global Page Block, attributes follow the same syntax as style attributes:
 
 AttributeName : Type/Unit Value
 
-- Each attribute must occupy a single line.
-- Duplicate attributes override earlier declarations (last-write-wins).
-- Only attribute declarations and comments are permitted.
+    - Each attribute must occupy a single line.
+    - Duplicate attributes override earlier declarations (last-write-wins).
+    - Only attribute declarations and comments are permitted.
 
-5.4.3 Supported Global Attributes
+### 5.4.3 Supported Global Attributes
 
-Global attributes override the Default Reference Model and include, but are not limited to:
-Attribute	Description	                                            Examples
-PageSize	Defines the physical dimensions of the manifold.	    ISO A4, ANSI Letter
-PageColor	Sets the canvas background value.	                    RGBHEX ECEEDD
-FlowCurve	Defines the mathematical path of the "pen" traversal.	SpaceFilling Hilbert, Linear Z-Order
-PageShape	Defines the geometric bound                             Rectangular, Custom SVG
+    Global attributes override the Default Reference Model and include, but are not limited to:
+    Attribute	Description	                                            Examples
+    PageSize	Defines the physical dimensions of the manifold.	    ISO A4, ANSI Letter
+    PageColor	Sets the canvas background value.	                    RGBHEX ECEEDD
+    FlowCurve	Defines the mathematical path of the "pen" traversal.	SpaceFilling Hilbert, Linear Z-Order
+    PageShape	Defines the geometric bound                             Rectangular, Custom SVG
 
 Example:
 
-`[`
-    bodyText !!
     `[`
-        FontFace : string "Tex Gyre Termes"
+        bodyText !!
+        `[`
+            FontFace : string "Tex Gyre Termes"
+        `]`
     `]`
-`]`
+    
+    ........
+    
+    PageSize   : ISO A4
+    PageColor  : RGBHEX ECEEDD
+    FlowCurve  : string "Hilbert"
 
-........
 
-PageSize   : ISO A4
-PageColor  : RGBHEX ECEEDD
-FlowCurve  : string "Hilbert"
+# 6. Escapes
 
-
-6. Escapes
-====
 
 $$ : Force a single Line break (the renderer ignores single line breaks. $$ forces a single line break)
 $_ : Force a single Blank space 
@@ -468,10 +465,10 @@ $_ : Force a single Blank space
 \doublepipe : Double vertical pipes
 \exclaim    : Exclaimation mark
 
-- Escapes are handled in the Renderer.
-- Escaped symbols are treated as literal Runes.
-- Escapes may not span lines.
-- Invalid escape sequences are treated as renderer errors.
+    - Escapes are handled in the Renderer.
+    - Escaped symbols are treated as literal Runes.
+    - Escapes may not span lines.
+    - Invalid escape sequences are treated as renderer errors.
 
 6.1 Reserved Exclamation Mark
 ----------------
