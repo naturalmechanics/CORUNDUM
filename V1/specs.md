@@ -369,27 +369,29 @@ Comments are enclosed between `//==` and `==//`.
 
 `AttributeName : Type/Unit Value`
 
-    -- The entire attribute declaration must occupy a single line (v1 constraint).
-    -- Around the colon :, horizontal whitespace is permitted.
-    -- No vertical whitespace is permitted within the declaration.
-    -- At least one horizontal whitespace is required between Type/Unit and Value.
-    -- No comma syntax is used in v1.
-    -- Duplicate attribute names within the same style block are invalid in v1.
+- The entire attribute declaration must occupy a single line (v1 constraint).
+- Around the colon :, horizontal whitespace is permitted.
+- No vertical whitespace is permitted within the declaration.
+- At least one horizontal whitespace is required between Type/Unit and Value.
+- No comma syntax is used in v1.
+- Duplicate attribute names within the same style block are invalid in v1.
 
-    - The syntax requires the type or unit to precede the value.
+--------
+
+- The syntax requires the type or unit to precede the value.
     
-    Examples:
+        Examples:
+        
+        FontColor : RGBHEX AABBCC
+        FontColor : RGB AABBCC
+        FontFace  : string "Cormorant Regular"
+        FontSize  : px 32
     
-    FontColor : RGBHEX AABBCC
-    FontColor : RGB AABBCC
-    FontFace  : string "Cormorant Regular"
-    FontSize  : px 32
-    
-        This ensures:
-    
-        -- Strong syntactic determinism
-        -- Clear separation between semantic intent (Type/Unit) and payload (Value)
-        -- Easier static validation
+This ensures:
+
+- Strong syntactic determinism
+- Clear separation between semantic intent (Type/Unit) and payload (Value)
+- Easier static validation
 
 
 
@@ -398,11 +400,11 @@ Comments are enclosed between `//==` and `==//`.
 
 A .corst file may contain multiple style definitions.
 
-    -- Style blocks must appear sequentially.
-    -- The closing bracket ] of a style block must be followed by at least one line break
-    -- The next style block must begin with an opening bracket [ on its own line
-    -- Nested style blocks are not permitted.
-    -- Duplicate StyleTag names within the same .corst file are invalid.
+- Style blocks must appear sequentially.
+- The closing bracket ] of a style block must be followed by at least one line break
+- The next style block must begin with an opening bracket [ on its own line
+- Nested style blocks are not permitted.
+- Duplicate StyleTag names within the same .corst file are invalid.
 
 5.4 Page Styles 
 ----------------
@@ -436,12 +438,13 @@ AttributeName : Type/Unit Value
 
 ### 5.4.3 Supported Global Attributes
 
-    Global attributes override the Default Reference Model and include, but are not limited to:
-    Attribute	Description	                                            Examples
-    PageSize	Defines the physical dimensions of the manifold.	    ISO A4, ANSI Letter
-    PageColor	Sets the canvas background value.	                    RGBHEX ECEEDD
-    FlowCurve	Defines the mathematical path of the "pen" traversal.	SpaceFilling Hilbert, Linear Z-Order
-    PageShape	Defines the geometric bound                             Rectangular, Custom SVG
+Global attributes override the Default Reference Model and include, but are not limited to:
+
+        Attribute	Description	                                            Examples
+        PageSize	Defines the physical dimensions of the manifold.	    ISO A4, ANSI Letter
+        PageColor	Sets the canvas background value.	                    RGBHEX ECEEDD
+        FlowCurve	Defines the mathematical path of the "pen" traversal.	SpaceFilling Hilbert, Linear Z-Order
+        PageShape	Defines the geometric bound                             Rectangular, Custom SVG
 
 Example:
 
