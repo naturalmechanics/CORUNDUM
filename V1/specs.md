@@ -4,7 +4,7 @@ Official Specification | Document Extension: .cortx | Style Extension: .corst
 -----------------------------------------------------------------------------
 
 0. Design Intent
-====
+=====
 
 Corundum is a deterministic, streaming-parseable document engineering format. 
 Unlike traditional markup, Corundum is defined as a structural document protocol rather than a lightweight markup language.
