@@ -1,7 +1,8 @@
 Corundum v1: Deterministic Document Engineering Format
------------------------------------------------------------------------------
-Official Specification | Document Extension: .cortx | Style Extension: .corst
------------------------------------------------------------------------------
+
+    -----------------------------------------------------------------------------
+    Official Specification | Document Extension: .cortx | Style Extension: .corst
+    -----------------------------------------------------------------------------
 
 # 0. Design Intent
 
@@ -307,7 +308,7 @@ etc.
 5.1 Comments
 ----------------
 
-Comments are enclosed between //== and ==//.  
+Comments are enclosed between `//==` and `==//`.  
 
 - Only single-line comments are permitted in v1.
 - The opening marker `//==` and closing marker `==//` must appear on the same line.
@@ -330,23 +331,27 @@ Comments are enclosed between //== and ==//.
 - No other characters are permitted on those lines except optional whitespace.
 - Immediately following the opening bracket, the next non-empty, non-comment line must contain the StyleTag declaration.
 
+--------
+
 - The StyleTag declaration must follow this structure:
 
         StyleTag !!
 
 
 - The StyleTag must conform to the same lexical constraints defined for .cortx files:
-    - First character: alphabetic [A–Z a–z]
+    - First character: alphabetic `[A–Z a–z]`
     - Subsequent characters: alphanumeric or underscore
     - No leading digits
     - No leading underscore
     - No special characters except underscore
     - No vertical whitespace
-- The StyleTag must be followed by exactly two exclamation marks: !!
-- No line break is allowed between the StyleTag and !!
+- The StyleTag must be followed by exactly two exclamation marks: `!!`
+- No line break is allowed between the StyleTag and `!!`
 - Horizontal whitespace between the StyleTag and !! is permitted but not required
 - No additional tokens may appear on the same line (excluding comments)
-    
+
+--------
+
 - Following the StyleTag line, an inner bracket block must appear:
     
         [
@@ -357,7 +362,9 @@ Comments are enclosed between //== and ==//.
     - The closing `]` must be on its own line.
     - Between them, one or more attribute lines may appear.
     - Only attribute declarations and comments are allowed inside the inner block.
-    
+
+--------
+
 - Each attribute must follow this strict structure:
 
 `AttributeName : Type/Unit Value`
@@ -408,12 +415,12 @@ This block defines properties that apply to the entire document manifold.
 The transition from style definitions to global page attributes is marked by a Global Separator.
 The separator is: ........
 
-    - It must consist of eight or more consecutive periods.
-    - The separator must appear on a line by itself.
-    - It must be preceded by a Double Blank Line.
-    - It must be followed by a Double Blank Line.
-    - It may only appear once in a .corst file.
-    - It is valid only inside .corst files (never in .cortx).
+- It must consist of eight or more consecutive periods.
+- The separator must appear on a line by itself.
+- It must be preceded by a Double Blank Line.
+- It must be followed by a Double Blank Line.
+- It may only appear once in a .corst file.
+- It is valid only inside .corst files (never in .cortx).
 
 
 
@@ -423,9 +430,9 @@ Within the Global Page Block, attributes follow the same syntax as style attribu
 
 AttributeName : Type/Unit Value
 
-    - Each attribute must occupy a single line.
-    - Duplicate attributes override earlier declarations (last-write-wins).
-    - Only attribute declarations and comments are permitted.
+- Each attribute must occupy a single line.
+- Duplicate attributes override earlier declarations (last-write-wins).
+- Only attribute declarations and comments are permitted.
 
 ### 5.4.3 Supported Global Attributes
 
@@ -465,10 +472,10 @@ $_ : Force a single Blank space
 \doublepipe : Double vertical pipes
 \exclaim    : Exclaimation mark
 
-    - Escapes are handled in the Renderer.
-    - Escaped symbols are treated as literal Runes.
-    - Escapes may not span lines.
-    - Invalid escape sequences are treated as renderer errors.
+- Escapes are handled in the Renderer.
+- Escaped symbols are treated as literal Runes.
+- Escapes may not span lines.
+- Invalid escape sequences are treated as renderer errors.
 
 6.1 Reserved Exclamation Mark
 ----------------
