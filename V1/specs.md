@@ -148,26 +148,26 @@ The include directive syntax is:
 `!INCLUDE SkinFileName.corst`
 
 - Inclusion Rules
-    -- Position Requirement
-        --- The include directive must be the first non-empty line of the document.
-        --- If any non-whitespace character precedes it, the parser shall 
+    - Position Requirement
+        - The include directive must be the first non-empty line of the document.
+        - If any non-whitespace character precedes it, the parser shall 
             not recognize the directive and shall treat it as plain text.
 
-    --  Token Structure
-        --- The ! symbol must be in the sameline as the keyword INCLUDE.
-        --- No line break is permitted between them.
-        --- Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
-        --- At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
-        --- No line break is permitted between INCLUDE and the file name.
+    - Token Structure
+        - The ! symbol must be in the sameline as the keyword INCLUDE.
+        - No line break is permitted between them.
+        - Horizontal whitespace, such as space or tab, is permitted between the ! symbol and the keyword INCLUDE
+        - At least one horizontal whitespace (space or tab) must separate INCLUDE and the file name.
+        - No line break is permitted between INCLUDE and the file name.
 
-    -- Termination
-        --- The directive must terminate with at least one line break.
-        --- Two line breaks are recommended to visually separate the directive from document content.
+    - Termination
+        - The directive must terminate with at least one line break.
+        - Two line breaks are recommended to visually separate the directive from document content.
 
-    -- File Name Constraints
-        --- The file name must end in .corst.
-        --- Only one Skin File may be included in Corundum v1.
-        --- Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
+    - File Name Constraints
+        - The file name must end in .corst.
+        - Only one Skin File may be included in Corundum v1.
+        - Multiple include directives are invalid and the v1 parser will treat additional directives as normal text.
 
 
 
