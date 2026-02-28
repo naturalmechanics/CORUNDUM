@@ -4,7 +4,6 @@ Official Specification | Document Extension: .cortx | Style Extension: .corst
 -----------------------------------------------------------------------------
 
 # 0. Design Intent
-=====
 
 Corundum is a deterministic, streaming-parseable document engineering format. 
 Unlike traditional markup, Corundum is defined as a structural document protocol rather than a lightweight markup language.
@@ -20,8 +19,8 @@ It is engineered for:
 
 
 
-1. Conceptual Model
-====
+# 1. Conceptual Model
+
 
 A Corundum document is modeled as a deterministic traversal of a bounded 2D manifold (the Page) 
 by a pen following a space-filling curve.
@@ -29,7 +28,8 @@ by a pen following a space-filling curve.
 The parser is strictly responsible for building a Structural Abstract Syntax Tree (AST); 
 it does not render. Rendering engines consume the AST to produce visual output.
 
->> Core Abstractions
+1.1 Core Abstractions
+----------------
 
     => Page: The primary rendering target (Default: ISO 216 A4).
     => Flow: The default linear progression of content.
@@ -40,8 +40,7 @@ it does not render. Rendering engines consume the AST to produce visual output.
 
 
 
-2. Parsing Guarantees
-====
+# 2. Parsing Guarantees
 
 Corundum v1 mandates the following parser constraints:
 
@@ -54,8 +53,7 @@ Corundum v1 mandates the following parser constraints:
 
 
 
-3. Default Reference Model
-====
+# 3. Default Reference Model
 
 In the absence of external .corst configuration, the following rendering defaults apply:
 
