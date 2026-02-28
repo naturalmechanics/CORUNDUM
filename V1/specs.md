@@ -3,7 +3,7 @@ Corundum v1: Deterministic Document Engineering Format
 Official Specification | Document Extension: .cortx | Style Extension: .corst
 -----------------------------------------------------------------------------
 
-0. Design Intent
+# 0. Design Intent
 =====
 
 Corundum is a deterministic, streaming-parseable document engineering format. 
